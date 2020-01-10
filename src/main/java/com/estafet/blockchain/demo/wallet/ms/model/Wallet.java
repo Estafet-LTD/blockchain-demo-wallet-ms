@@ -1,5 +1,8 @@
 package com.estafet.blockchain.demo.wallet.ms.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,6 +33,14 @@ public class Wallet {
 
 	public void setWalletName(String walletName) {
 		this.walletName = walletName;
+	}
+
+	public String toJSON() {
+		try {
+			return new ObjectMapper().writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 }
