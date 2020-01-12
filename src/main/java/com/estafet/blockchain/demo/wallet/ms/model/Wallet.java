@@ -12,9 +12,20 @@ public class Wallet {
 	@Id
 	@Column(name = "WALLET_ADDRESS", nullable = false)
 	private String walletAddress;
-	
+
 	@Column(name = "WALLET_NAME", nullable = false)
 	private String walletName;
+
+	@Column(name = "BALANCE", nullable = false)
+	private int balance = 0;
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
 
 	public String getWalletAddress() {
 		return walletAddress;
@@ -31,5 +42,5 @@ public class Wallet {
 	public void setWalletName(String walletName) {
 		this.walletName = walletName;
 	}
-	
+
 }
