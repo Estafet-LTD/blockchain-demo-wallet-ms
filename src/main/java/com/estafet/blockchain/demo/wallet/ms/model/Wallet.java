@@ -22,6 +22,18 @@ public class Wallet {
 	@Column(name = "BALANCE", nullable = false)
 	private int balance = 0;
 
+	// status can be cleared or pending
+	@Column(name = "STATUS", nullable = false)
+	private String status = "CLEARED";
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public int getBalance() {
 		return balance;
 	}
