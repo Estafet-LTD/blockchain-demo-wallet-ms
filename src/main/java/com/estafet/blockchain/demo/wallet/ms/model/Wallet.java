@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +26,17 @@ public class Wallet {
 	// status can be cleared or pending
 	@Column(name = "STATUS", nullable = false)
 	private String status = "CLEARED";
+	
+	@Transient
+	private String currency;
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
 
 	public String getStatus() {
 		return status;
