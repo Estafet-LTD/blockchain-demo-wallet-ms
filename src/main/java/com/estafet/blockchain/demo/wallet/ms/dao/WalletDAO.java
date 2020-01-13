@@ -12,5 +12,9 @@ public interface WalletDAO {
 
     Wallet createWallet(Wallet wallet);
 
-    void deleteWallet(String address);
+    Wallet walletToWalletTransfer(String walletAddress, int cryptoAmount);
+
+    void updateWallet(Wallet wallet);
+
+    Wallet bankToWalletTransfer(String walletAddress, double amount);
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.estafet.blockchain.demo.wallet.ms.model.API;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,14 +37,17 @@ public class WalletController {
 	}
 
 	@PostMapping("/wallet")
-	public ResponseEntity createWallet(@RequestBody Wallet wallet) {
-		return new ResponseEntity(walletService.createWallet(wallet), HttpStatus.OK);
+	public ResponseEntity<Wallet> createWallet(@RequestBody Wallet wallet) {
+		return new ResponseEntity<>(walletService.createWallet(wallet), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/wallet/{address}")
-	public ResponseEntity deleteWallet(@PathVariable String address) {
-		walletService.deleteWallet(address);
-		return new ResponseEntity(address, HttpStatus.OK);
+	@PostMapping("/wallet/{address}/cryptoTransfer")
+	public ResponseEntity<Wallet> walletToWalletTransfer(@PathVariable String walletAddress, @PathVariable int cryptoAmount) {
+		return new ResponseEntity<>(walletService.walletToWalletTransfer(walletAddress,cryptoAmount), HttpStatus.OK);
 	}
-	
+
+	@PostMapping("/wallet/{address}/currencyTransfer")
+	public ResponseEntity<Wallet> bankToWalletTransfer(@PathVariable String walletAddress, @PathVariable double amount) {
+		return new ResponseEntity<>(walletService.bankToWalletTransfer(walletAddress,amount), HttpStatus.OK);
+	}
 }
