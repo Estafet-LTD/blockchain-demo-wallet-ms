@@ -6,6 +6,7 @@ import com.estafet.blockchain.demo.wallet.ms.jms.BankToWalletPaymentProducer;
 import com.estafet.blockchain.demo.wallet.ms.jms.NewWalletProducer;
 import com.estafet.blockchain.demo.wallet.ms.jms.WalletToWalletPaymentProducer;
 import com.estafet.blockchain.demo.wallet.ms.model.Wallet;
+import com.estafet.demo.commons.lib.wallet.WalletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -36,6 +37,7 @@ public class WalletDAOImpl implements WalletDAO {
 
     @Override
     public Wallet createWallet(Wallet wallet) {
+        wallet.setWalletAddress(WalletUtils.generateWalletAddress());
         entityManager.persist(wallet);
         newWalletProducer.sendMessage(wallet);
         return wallet;
