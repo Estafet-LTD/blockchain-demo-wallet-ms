@@ -42,7 +42,7 @@ public class ITWalletTest {
         get("/wallet/adr").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("adr"))
-                .body("accountName", is("Iryna"))
+                .body("walletName", is("Iryna"))
                 .body("balance",is(100))
                 .body("status",is("CLEARED"));
     }
@@ -51,13 +51,14 @@ public class ITWalletTest {
     @DatabaseSetup("ITWalletTest-data.xml")
     public void testCreateWallet() {
         given().contentType(ContentType.JSON)
-                .body("{\"walletAddress\": \"abcd\", \"walletName\": \"Bill\", \"currency\": \"EUR\" }")
+                .body("{\"balance\": 5, \"status\": \"CLEARED\", \"walletName\": \"Bill\", \"currency\": \"EUR\" }")
                 .when()
                 .post("/wallet")
                 .then()
                 .statusCode(HttpURLConnection.HTTP_OK)
-                .body("walletAddress", is("abcd"))
-                .body("accountName", is("Bill"))
-                .body("accountName", is("EUR"));
+                .body("balance", is(5))
+                .body("status", is("CLEARED"))
+                .body("walletName", is("Bill"))
+                .body("currency", is("EUR"));
     }
 }
