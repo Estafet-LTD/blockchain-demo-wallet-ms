@@ -26,7 +26,7 @@ public class WalletController {
 		return new API(appVersion);
 	}
 
-	@GetMapping("/wallet/{address}")
+	@GetMapping("/wallet/{walletAddress}")
 	public Wallet getWallet(@PathVariable String walletAddress) {
 		return walletService.getWallet(walletAddress);
 	}
@@ -41,12 +41,12 @@ public class WalletController {
 		return new ResponseEntity<>(walletService.createWallet(wallet), HttpStatus.OK);
 	}
 
-	@PostMapping("/wallet/{address}/cryptoTransfer")
+	@PostMapping("/wallet/{walletAddress}/cryptoTransfer")
 	public ResponseEntity<Wallet> walletToWalletTransfer(@PathVariable String walletAddress, @PathVariable int cryptoAmount) {
 		return new ResponseEntity<>(walletService.walletToWalletTransfer(walletAddress,cryptoAmount), HttpStatus.OK);
 	}
 
-	@PostMapping("/wallet/{address}/currencyTransfer")
+	@PostMapping("/wallet/{walletAddress}/currencyTransfer")
 	public ResponseEntity<Wallet> bankToWalletTransfer(@PathVariable String walletAddress, @PathVariable double amount) {
 		return new ResponseEntity<>(walletService.bankToWalletTransfer(walletAddress,amount), HttpStatus.OK);
 	}
