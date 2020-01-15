@@ -2,6 +2,7 @@ package com.estafet.blockchain.demo.wallet.ms.service;
 
 import com.estafet.blockchain.demo.messages.lib.wallet.UpdateWalletBalanceMessage;
 import com.estafet.blockchain.demo.wallet.ms.dao.WalletDAO;
+import com.estafet.blockchain.demo.wallet.ms.model.Account;
 import com.estafet.blockchain.demo.wallet.ms.model.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,8 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional
-    public Wallet createWallet(Wallet wallet) {
-        return walletDAO.createWallet(wallet);
+    public Wallet createWallet(Account account) {
+        return walletDAO.createWallet(account);
     }
 
     @Override

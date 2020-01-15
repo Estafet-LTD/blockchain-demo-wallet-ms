@@ -26,17 +26,6 @@ public class Wallet {
 	// status can be cleared or pending
 	@Column(name = "STATUS", nullable = false)
 	private String status = "CLEARED";
-	
-	@Transient
-	private String currency;
-
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
 
 	public String getStatus() {
 		return status;
@@ -76,6 +65,15 @@ public class Wallet {
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static Wallet instance(Account account) {
+		Wallet wallet = new Wallet();
+		wallet.setWalletAddress(account.getWalletAddress());
+		wallet.setWalletName(account.getAccountName());
+		wallet.setBalance(0);
+		wallet.setStatus("CLEARED");
+		return wallet;
 	}
 
 }

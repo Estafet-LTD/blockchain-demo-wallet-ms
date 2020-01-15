@@ -1,5 +1,6 @@
 package com.estafet.blockchain.demo.wallet.ms.controller;
 
+import com.estafet.blockchain.demo.wallet.ms.model.Account;
 import com.estafet.blockchain.demo.wallet.ms.model.Wallet;
 import com.estafet.blockchain.demo.wallet.ms.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class WalletController {
 	}
 
 	@PostMapping("/wallet")
-	public ResponseEntity<Wallet> createWallet(@RequestBody Wallet wallet) {
-		return new ResponseEntity<>(walletService.createWallet(wallet), HttpStatus.OK);
+	public ResponseEntity<Wallet> createWallet(@RequestBody Account account) {
+		return new ResponseEntity<>(walletService.createWallet(account), HttpStatus.OK);
 	}
 
 	@PostMapping("/wallet/{walletAddress}/cryptoTransfer/{cryptoAmount}")

@@ -3,10 +3,9 @@ package com.estafet.blockchain.demo.wallet.ms.dao;
 import com.estafet.blockchain.demo.messages.lib.bank.BankPaymentMessage;
 import com.estafet.blockchain.demo.messages.lib.wallet.WalletPaymentMessage;
 import com.estafet.blockchain.demo.wallet.ms.jms.BankToWalletPaymentProducer;
-import com.estafet.blockchain.demo.wallet.ms.jms.NewWalletProducer;
 import com.estafet.blockchain.demo.wallet.ms.jms.WalletToWalletPaymentProducer;
+import com.estafet.blockchain.demo.wallet.ms.model.Account;
 import com.estafet.blockchain.demo.wallet.ms.model.Wallet;
-import com.estafet.demo.commons.lib.wallet.WalletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +20,6 @@ public class WalletDAOImpl implements WalletDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private NewWalletProducer newWalletProducer;
     private WalletToWalletPaymentProducer toWalletPaymentProducer;
     private BankToWalletPaymentProducer bankToWalletPaymentProducer;
 
@@ -36,10 +34,9 @@ public class WalletDAOImpl implements WalletDAO {
     }
 
     @Override
-    public Wallet createWallet(Wallet wallet) {
-        wallet.setWalletAddress(WalletUtils.generateWalletAddress());
+    public Wallet createWallet(Account account) {
+        Wallet wallet = Wallet.instance(account);
         entityManager.persist(wallet);
-        newWalletProducer.sendMessage(wallet);
         return wallet;
     }
 
@@ -66,11 +63,6 @@ public class WalletDAOImpl implements WalletDAO {
     @Override
     public void updateWallet(Wallet wallet) {
         entityManager.merge(wallet);
-    }
-
-    @Autowired
-    public void setNewWalletProducer(NewWalletProducer newWalletProducer) {
-        this.newWalletProducer = newWalletProducer;
     }
 
     @Autowired
