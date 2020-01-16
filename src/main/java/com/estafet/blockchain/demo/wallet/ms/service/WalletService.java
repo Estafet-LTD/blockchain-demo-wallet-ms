@@ -18,4 +18,6 @@ public interface WalletService {
     Wallet bankToWalletTransfer(String walletAddress, double amount);
 
     void handleUpdateWalletBalanceMessage(UpdateWalletBalanceMessage message);
+
+    Wallet getWalletByName(String walletName);
 }

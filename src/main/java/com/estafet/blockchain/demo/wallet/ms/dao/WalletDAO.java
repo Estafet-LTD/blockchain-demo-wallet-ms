@@ -18,4 +18,6 @@ public interface WalletDAO {
     void updateWallet(Wallet wallet);
 
     Wallet bankToWalletTransfer(String walletAddress, double amount);
+
+    Wallet getWalletByName(String walletName);
 }

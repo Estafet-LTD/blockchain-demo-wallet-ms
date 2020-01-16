@@ -1,6 +1,5 @@
 package com.estafet.blockchain.demo.wallet.ms.container.tests;
 
-import com.estafet.blockchain.demo.messages.lib.wallet.UpdateWalletBalanceMessage;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.After;
@@ -19,7 +18,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import java.net.HttpURLConnection;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -53,15 +52,15 @@ public class ITWalletTest {
     @DatabaseSetup("ITWalletTest-data.xml")
     public void testCreateWallet() {
         given().contentType(ContentType.JSON)
-                .body("{\"balance\": 5, \"status\": \"CLEARED\", \"walletName\": \"Bill\", \"currency\": \"EUR\" }")
+                .body("{\"accountName\": \"Bill\", \"walletAddress\": \"qwe\" }")
                 .when()
                 .post("/wallet")
                 .then()
                 .statusCode(HttpURLConnection.HTTP_OK)
-                .body("balance", is(5))
+                .body("walletAddress", is("qwe"))
+                .body("balance", is(0))
                 .body("status", is("CLEARED"))
-                .body("walletName", is("Bill"))
-                .body("currency", is("EUR"));
+                .body("walletName", is("Bill"));
     }
 
     @Test
@@ -110,14 +109,14 @@ public class ITWalletTest {
     }
 
     @Test
-    @DatabaseSetup("ITWalletTest-data.xml")
-    public void testUpdateWalletBalanceConsumer(){
-        UpdateWalletBalanceTopicProducer.send("{\"walletAddress\":\"adr\",\"signature\":\"sign\",\"balance\":95}");
-        UpdateWalletBalanceMessage message = topic.consume();
-        assertEquals("sign", message.getSignature());
-        assertEquals("adr", message.getWalletAddress());
-        assertEquals(95, message.getBalance());
-
-    }
-
+	@DatabaseSetup("ITWalletTest-data.xml")
+	public void testConsumeNewWallet() {
+        NewAccountProducer.send("{\"accountName\":\"Dido\",\"currency\":\"USD\"}");
+		get("/wallet/Dido").then()
+			.statusCode(HttpURLConnection.HTTP_OK)
+			.body("walletAddress", is(notNullValue()))
+            .body("walletName",is("Dido"))
+            .body("balance", is(0))
+            .body("status", is("CLEARED"));
+	}
 }
