@@ -40,7 +40,7 @@ public class ITWalletTest {
     @Test
     @DatabaseSetup("ITWalletTest-data.xml")
     public void testGetWallet() {
-        get("/wallet/adr").then()
+        get("/wallet/walletAddress/adr").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("adr"))
                 .body("walletName", is("Iryna"))
@@ -78,7 +78,7 @@ public class ITWalletTest {
                 .body("status", is("PENDING"));
 
         UpdateWalletBalanceTopicProducer.send("{\"walletAddress\":\"adr\",\"signature\":\"sign\",\"balance\":95}");
-        get("/wallet/adr").then()
+        get("/wallet/walletAddress/adr").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("adr"))
                 .body("walletName", is("Iryna"))
@@ -100,7 +100,7 @@ public class ITWalletTest {
                 .body("balance", is(15))
                 .body("status", is("PENDING"));
         UpdateWalletBalanceTopicProducer.send("{\"walletAddress\":\"qqq\",\"signature\":\"sign\",\"balance\":5}");
-        get("/wallet/qqq").then()
+        get("/wallet/walletAddress/qqq").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("qqq"))
                 .body("walletName", is("Peter"))
@@ -112,7 +112,7 @@ public class ITWalletTest {
 	@DatabaseSetup("ITWalletTest-data.xml")
 	public void testConsumeNewWallet() {
         NewAccountProducer.send("{\"accountName\":\"Dido\",\"currency\":\"USD\"}");
-		get("/wallet/Dido").then()
+		get("/wallet/walletName/Dido").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
 			.body("walletAddress", is(notNullValue()))
             .body("walletName",is("Dido"))
