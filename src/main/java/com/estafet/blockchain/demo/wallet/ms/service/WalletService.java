@@ -13,7 +13,7 @@ public interface WalletService {
 
     Wallet createWallet(Account account);
 
-    Wallet walletToWalletTransfer(String walletAddress, int cryptoAmount);
+    Wallet walletToWalletTransfer(String walletAddress, String toWalletAddress, int cryptoAmount);
 
     Wallet bankToWalletTransfer(String walletAddress, double amount);
 

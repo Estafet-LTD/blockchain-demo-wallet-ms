@@ -13,7 +13,7 @@ public interface WalletDAO {
 
     Wallet createWallet(Account account);
 
-    Wallet walletToWalletTransfer(String walletAddress, int cryptoAmount);
+    Wallet walletToWalletTransfer(String walletAddress, String toWalletAddress, int cryptoAmount);
 
     void updateWallet(Wallet wallet);
 

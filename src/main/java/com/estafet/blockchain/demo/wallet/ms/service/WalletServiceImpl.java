@@ -35,8 +35,8 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional
-    public Wallet walletToWalletTransfer(String walletAddress, int cryptoAmount) {
-       return walletDAO.walletToWalletTransfer(walletAddress, cryptoAmount);
+    public Wallet walletToWalletTransfer(String walletAddress, String toWalletAddress, int cryptoAmount) {
+       return walletDAO.walletToWalletTransfer(walletAddress,toWalletAddress, cryptoAmount);
     }
 
     @Override

@@ -41,10 +41,10 @@ public class WalletDAOImpl implements WalletDAO {
     }
 
     @Override
-    public Wallet walletToWalletTransfer(String walletAddress, int cryptoAmount) {
-        Wallet wallet = getWallet(walletAddress);
+    public Wallet walletToWalletTransfer(String fromWalletAddress, String toWalletAddress, int cryptoAmount) {
+        Wallet wallet = getWallet(fromWalletAddress);
         if(wallet.getStatus()!=null && wallet.getStatus().equals("CLEARED")){
-            toWalletPaymentProducer.sendMessage(new WalletPaymentMessage(cryptoAmount,null,walletAddress,"sign", UUID.randomUUID().toString()));
+            toWalletPaymentProducer.sendMessage(new WalletPaymentMessage(cryptoAmount,fromWalletAddress,toWalletAddress,"sign", UUID.randomUUID().toString()));
             wallet.setStatus("PENDING");
         }
         return wallet;

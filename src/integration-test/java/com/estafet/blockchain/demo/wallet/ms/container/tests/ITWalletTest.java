@@ -68,7 +68,7 @@ public class ITWalletTest {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"adr\",\"cryptoAmount\": 5 }")
                 .when()
-                .post("/wallet/adr/crypto-transfer/5")
+                .post("/wallet/from/adr/to/rrr/crypto-transfer/5")
                 .then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("adr"))
