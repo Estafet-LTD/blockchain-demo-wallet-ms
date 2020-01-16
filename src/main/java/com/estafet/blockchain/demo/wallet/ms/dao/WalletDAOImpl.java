@@ -62,7 +62,8 @@ public class WalletDAOImpl implements WalletDAO {
 
     @Override
     public List<Wallet> getWalletByName(String walletName) {
-        return entityManager.createQuery("Select w.walletName from Wallet w").getResultList();
+        return entityManager.createQuery("Select w from Wallet w where w.walletName = :walletName")
+                .setParameter("walletName", walletName).getResultList();
     }
 
     @Override
