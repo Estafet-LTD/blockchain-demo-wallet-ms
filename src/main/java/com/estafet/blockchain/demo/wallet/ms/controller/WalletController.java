@@ -27,16 +27,10 @@ public class WalletController {
 		return new API(appVersion);
 	}
 
-	@GetMapping("/wallet/walletAddress/{walletAddress}")
+	@GetMapping("/wallet/{walletAddress}")
 	public Wallet getWallet(@PathVariable String walletAddress) {
 		return walletService.getWallet(walletAddress);
 	}
-
-	@GetMapping("/wallet/walletName/{walletName}")
-	public List<Wallet> getWalletByName(@PathVariable String walletName) {
-		return walletService.getWalletByName(walletName);
-	}
-
 
 	@GetMapping(value = "/wallets")
 	public List<Wallet> getWallets() {
@@ -48,12 +42,12 @@ public class WalletController {
 		return new ResponseEntity<>(walletService.createWallet(account), HttpStatus.OK);
 	}
 
-	@PostMapping("/wallet/{walletAddress}/cryptoTransfer/{cryptoAmount}")
+	@PostMapping("/wallet/{walletAddress}/crypto-transfer/{cryptoAmount}")
 	public ResponseEntity<Wallet> walletToWalletTransfer(@PathVariable String walletAddress, @PathVariable int cryptoAmount) {
 		return new ResponseEntity<>(walletService.walletToWalletTransfer(walletAddress,cryptoAmount), HttpStatus.OK);
 	}
 
-	@PostMapping("/wallet/{walletAddress}/currencyTransfer/{amount}")
+	@PostMapping("/wallet/{walletAddress}/currency-transfer/{amount}")
 	public ResponseEntity<Wallet> bankToWalletTransfer(@PathVariable String walletAddress, @PathVariable double amount) {
 		return new ResponseEntity<>(walletService.bankToWalletTransfer(walletAddress,amount), HttpStatus.OK);
 	}

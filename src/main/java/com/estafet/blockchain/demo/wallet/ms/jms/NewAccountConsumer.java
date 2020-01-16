@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class NewAccountConsumer {
 
-    public final static String TOPIC = "new.bank.topic";
+    public final static String TOPIC = "new.account.topic";
 
     @Autowired
     private Tracer tracer;

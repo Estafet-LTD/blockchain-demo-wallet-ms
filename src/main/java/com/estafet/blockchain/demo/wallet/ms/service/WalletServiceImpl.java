@@ -53,12 +53,6 @@ public class WalletServiceImpl implements WalletService {
         walletDAO.updateWallet(wallet);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Wallet> getWalletByName(String walletName) {
-        return walletDAO.getWalletByName(walletName);
-    }
-
     @Autowired
     public void setWalletDAO(WalletDAO walletDAO) {
         this.walletDAO = walletDAO;

@@ -19,5 +19,4 @@ public interface WalletService {
 
     void handleUpdateWalletBalanceMessage(UpdateWalletBalanceMessage message);
 
-    List<Wallet> getWalletByName(String walletName);
 }

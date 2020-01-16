@@ -18,7 +18,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import java.net.HttpURLConnection;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -40,7 +39,7 @@ public class ITWalletTest {
     @Test
     @DatabaseSetup("ITWalletTest-data.xml")
     public void testGetWallet() {
-        get("/wallet/walletAddress/adr").then()
+        get("/wallet/adr").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("adr"))
                 .body("walletName", is("Iryna"))
@@ -69,7 +68,7 @@ public class ITWalletTest {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"adr\",\"cryptoAmount\": 5 }")
                 .when()
-                .post("/wallet/adr/cryptoTransfer/5")
+                .post("/wallet/adr/crypto-transfer/5")
                 .then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("adr"))
@@ -78,7 +77,7 @@ public class ITWalletTest {
                 .body("status", is("PENDING"));
 
         UpdateWalletBalanceTopicProducer.send("{\"walletAddress\":\"adr\",\"signature\":\"sign\",\"balance\":95}");
-        get("/wallet/walletAddress/adr").then()
+        get("/wallet/adr").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("adr"))
                 .body("walletName", is("Iryna"))
@@ -92,7 +91,7 @@ public class ITWalletTest {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"qqq\",\"currencyTransfer\": 10 }")
                 .when()
-                .post("/wallet/qqq/currencyTransfer/10")
+                .post("/wallet/qqq/currency-transfer/10")
                 .then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("qqq"))
@@ -100,7 +99,7 @@ public class ITWalletTest {
                 .body("balance", is(15))
                 .body("status", is("PENDING"));
         UpdateWalletBalanceTopicProducer.send("{\"walletAddress\":\"qqq\",\"signature\":\"sign\",\"balance\":5}");
-        get("/wallet/walletAddress/qqq").then()
+        get("/wallet/qqq").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("qqq"))
                 .body("walletName", is("Peter"))
@@ -109,13 +108,14 @@ public class ITWalletTest {
     }
 
     @Test
-	@DatabaseSetup("ITWalletTest-data.xml")
-	public void testConsumeNewWallet() {
-        NewAccountProducer.send("{\"accountName\":\"Dido\",\"currency\":\"USD\"}");
-		get("/wallet/walletName/Dido").then()
+    @DatabaseSetup("ITWalletTest-data.xml")
+	public void testConsumeNewAccount() {
+    NewAccountProducer.send("{\"accountName\":\"Misha\",\"walletAddress\":\"ppp\",\"currency\": \"USD\"}");
+
+        get("/wallet/ppp").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
-			.body("walletAddress", is(notNullValue()))
-            .body("walletName",is("Dido"))
+			.body("walletAddress", is("ppp"))
+            .body("walletName",is("Misha"))
             .body("balance", is(0))
             .body("status", is("CLEARED"));
 	}
