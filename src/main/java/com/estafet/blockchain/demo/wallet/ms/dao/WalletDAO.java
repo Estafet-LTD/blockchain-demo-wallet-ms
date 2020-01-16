@@ -19,5 +19,5 @@ public interface WalletDAO {
 
     Wallet bankToWalletTransfer(String walletAddress, double amount);
 
-    Wallet getWalletByName(String walletName);
+    List<Wallet> getWalletByName(String walletName);
 }

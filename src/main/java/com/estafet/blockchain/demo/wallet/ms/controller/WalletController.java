@@ -33,7 +33,7 @@ public class WalletController {
 	}
 
 	@GetMapping("/wallet/walletName/{walletName}")
-	public Wallet getWalletByName(@PathVariable String walletName) {
+	public List<Wallet> getWalletByName(@PathVariable String walletName) {
 		return walletService.getWalletByName(walletName);
 	}
 

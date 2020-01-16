@@ -55,7 +55,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional(readOnly = true)
-    public Wallet getWalletByName(String walletName) {
+    public List<Wallet> getWalletByName(String walletName) {
         return walletDAO.getWalletByName(walletName);
     }
 
