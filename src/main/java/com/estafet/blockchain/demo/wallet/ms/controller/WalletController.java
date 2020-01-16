@@ -27,12 +27,12 @@ public class WalletController {
 		return new API(appVersion);
 	}
 
-	@GetMapping("/wallet/{walletAddress}")
+	@GetMapping("/wallet/walletAddress/{walletAddress}")
 	public Wallet getWallet(@PathVariable String walletAddress) {
 		return walletService.getWallet(walletAddress);
 	}
 
-	@GetMapping("/wallet/{walletName}")
+	@GetMapping("/wallet/walletName/{walletName}")
 	public Wallet getWalletByName(@PathVariable String walletName) {
 		return walletService.getWalletByName(walletName);
 	}
