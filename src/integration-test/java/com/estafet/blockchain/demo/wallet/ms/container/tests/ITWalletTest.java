@@ -68,7 +68,7 @@ public class ITWalletTest {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"adr\",\"cryptoAmount\": 5 }")
                 .when()
-                .post("/wallet/from/adr/to/rrr/crypto-transfer/5")
+                .post("/wallet/from/adr/to/qqq/crypto-transfer/5")
                 .then()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .body("walletAddress", is("adr"))
@@ -82,6 +82,14 @@ public class ITWalletTest {
                 .body("walletAddress", is("adr"))
                 .body("walletName", is("Iryna"))
                 .body("balance", is(95))
+                .body("status", is("CLEARED"));
+
+        UpdateWalletReceiverBalanceTopicProducer.send("{\"walletAddress\":\"qqq\",\"signature\":\"sign\",\"balance\":20}");
+        get("/wallet/qqq").then()
+                .statusCode(HttpURLConnection.HTTP_OK)
+                .body("walletAddress", is("qqq"))
+                .body("walletName", is("Peter"))
+                .body("balance", is(20))
                 .body("status", is("CLEARED"));
     }
 
