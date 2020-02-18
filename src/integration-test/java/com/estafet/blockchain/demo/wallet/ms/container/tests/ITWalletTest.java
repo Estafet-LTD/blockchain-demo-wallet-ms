@@ -1,7 +1,11 @@
 package com.estafet.blockchain.demo.wallet.ms.container.tests;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
+
+import java.net.HttpURLConnection;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,13 +15,12 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import com.estafet.microservices.scrum.lib.commons.properties.PropertyUtils;
+import com.estafet.openshift.boost.commons.lib.properties.PropertyUtils;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import java.net.HttpURLConnection;
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.is;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
