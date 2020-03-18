@@ -12,6 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
@@ -22,9 +23,6 @@ import org.springframework.web.client.RestTemplate;
 
 import io.opentracing.Tracer;
 import io.opentracing.contrib.jms.spring.TracingJmsTemplate;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @ComponentScan
@@ -32,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 @EnableJms
 @EnableDiscoveryClient
+@EnableCouchbaseRepositories
 public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

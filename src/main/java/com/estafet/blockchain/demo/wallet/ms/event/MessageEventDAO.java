@@ -1,32 +1,31 @@
 package com.estafet.blockchain.demo.wallet.ms.event;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.stereotype.Repository;
+import com.estafet.blockchain.demo.wallet.ms.repository.MessageEventRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.estafet.blockchain.demo.wallet.ms.model.MessageEvent;
 
-@Repository
+@Service
 public class MessageEventDAO {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private MessageEventRepository messageEventRepository;
 
 	@Transactional(readOnly = true)
 	public MessageEvent getMessageEvent(String topic) {
-		return entityManager.find(MessageEvent.class, topic);
+		return messageEventRepository.findOne(topic);
 	}
 	
 	@Transactional
 	public void create(MessageEvent abstractMessageEvent) {
-		entityManager.persist(abstractMessageEvent);
+		messageEventRepository.save(abstractMessageEvent);
 	}
 	
 	@Transactional
 	public void update(MessageEvent abstractMessageEvent) {
-		entityManager.merge(abstractMessageEvent);
+		messageEventRepository.getCouchbaseOperations().update(abstractMessageEvent);
 	}
 
 }

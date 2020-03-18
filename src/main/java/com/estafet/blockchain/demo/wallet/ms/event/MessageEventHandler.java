@@ -1,8 +1,7 @@
 package com.estafet.blockchain.demo.wallet.ms.event;
 
-import javax.persistence.OptimisticLockException;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +23,8 @@ public class MessageEventHandler {
 				} else {
 					messageEventDAO.update(abstractMessageEvent);
 				}
-			} catch (OptimisticLockException e) {
+			//TODO
+			} catch (OptimisticLockingFailureException e) {
 				return false;
 			}
 			return true;

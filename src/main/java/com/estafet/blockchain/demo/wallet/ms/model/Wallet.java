@@ -1,30 +1,37 @@
 package com.estafet.blockchain.demo.wallet.ms.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import com.couchbase.client.java.repository.annotation.Field;
+import com.couchbase.client.java.repository.annotation.Id;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.couchbase.core.mapping.Document;
 
-@Entity
-@Table(name = "WALLET")
-public class Wallet {
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Objects;
 
+@Document
+public class Wallet implements Serializable {
+
+	@NotNull
 	@Id
-	@Column(name = "WALLET_ADDRESS", nullable = false)
 	private String walletAddress;
 
-	@Column(name = "WALLET_NAME", nullable = false)
+	@Field
 	private String walletName;
 
-	@Column(name = "BALANCE", nullable = false)
+	@NotNull
+	@Field
 	private int balance = 0;
 
 	// status can be cleared or pending
-	@Column(name = "STATUS", nullable = false)
+	@NotNull
+	@Field
 	private String status = "CLEARED";
+
+	public Wallet(){
+
+	}
 
 	public String getStatus() {
 		return status;
@@ -75,4 +82,19 @@ public class Wallet {
 		return wallet;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Wallet newWallet = (Wallet) o;
+		return balance == newWallet.balance &&
+				Objects.equals(walletAddress, newWallet.walletAddress) &&
+				Objects.equals(walletName, newWallet.walletName) &&
+				Objects.equals(status, newWallet.status);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(walletAddress, walletName, balance, status);
+	}
 }

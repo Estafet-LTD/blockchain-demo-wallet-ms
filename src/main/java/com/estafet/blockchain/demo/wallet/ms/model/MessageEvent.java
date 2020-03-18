@@ -1,25 +1,29 @@
 package com.estafet.blockchain.demo.wallet.ms.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import com.couchbase.client.java.repository.annotation.Field;
+import com.couchbase.client.java.repository.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
 
-@Entity
-@Table(name = "MESSAGE_EVENT")
-public class MessageEvent {
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
+@Document
+public class MessageEvent implements Serializable {
+
+	@NotNull
 	@Id
-	@Column(name = "TOPIC_ID")
 	private String topicId;
 
-	@Column(name = "MESSAGE_REFERENCE", nullable = false)
+	@NotNull
+	@Field
 	private String messageReference;
 	
-	@Version
-	@Column(name = "VERSION")
+	@Field
 	private Integer version;
+
+	public MessageEvent(){
+
+	}
 
 	public String getTopicId() {
 		return topicId;
