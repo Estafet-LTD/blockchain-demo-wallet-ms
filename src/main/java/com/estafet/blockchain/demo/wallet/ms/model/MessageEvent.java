@@ -2,6 +2,7 @@ package com.estafet.blockchain.demo.wallet.ms.model;
 
 import com.couchbase.client.java.repository.annotation.Field;
 import com.couchbase.client.java.repository.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.couchbase.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -18,7 +19,7 @@ public class MessageEvent implements Serializable {
 	@Field
 	private String messageReference;
 	
-	@Field
+	@Version
 	private Integer version;
 
 	public MessageEvent(){

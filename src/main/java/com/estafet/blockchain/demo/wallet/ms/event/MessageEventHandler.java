@@ -1,5 +1,6 @@
 package com.estafet.blockchain.demo.wallet.ms.event;
 
+import com.couchbase.client.java.error.CASMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Component;
@@ -23,8 +24,7 @@ public class MessageEventHandler {
 				} else {
 					messageEventDAO.update(abstractMessageEvent);
 				}
-			//TODO
-			} catch (OptimisticLockingFailureException e) {
+			} catch (CASMismatchException e) {
 				return false;
 			}
 			return true;
