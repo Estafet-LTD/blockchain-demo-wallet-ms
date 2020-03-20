@@ -44,6 +44,9 @@ public class WalletServiceImpl implements WalletService {
     @Transactional
     public Wallet walletToWalletTransfer(String fromWalletAddress, String toWalletAddress, int cryptoAmount) {
         Wallet wallet = getWallet(fromWalletAddress);
+        if(wallet == null){
+            return null;
+        }
         if(wallet.getStatus()!=null && wallet.getStatus().equals("CLEARED")){
             toWalletPaymentProducer.sendMessage(new WalletPaymentMessage(cryptoAmount,fromWalletAddress,toWalletAddress,"sign", UUID.randomUUID().toString()));
             wallet.setStatus("PENDING");
@@ -55,6 +58,9 @@ public class WalletServiceImpl implements WalletService {
     @Transactional
     public Wallet bankToWalletTransfer(String walletAddress, double amount) {
         Wallet wallet = getWallet(walletAddress);
+        if(wallet == null){
+            return null;
+        }
         if(wallet.getStatus()!=null && wallet.getStatus().equals("CLEARED")){
             bankToWalletPaymentProducer.sendMessage(new BankPaymentMessage(amount,walletAddress,"qwwee",UUID.randomUUID().toString()));
             wallet.setStatus("PENDING");

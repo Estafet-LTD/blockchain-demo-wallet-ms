@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-	<wallet wallet_address="adr" balance="100" status="CLEARED" wallet_name="Iryna"/>
-	<wallet wallet_address="qqq" balance="15" status="CLEARED" wallet_name="Peter"/>
-</dataset>
