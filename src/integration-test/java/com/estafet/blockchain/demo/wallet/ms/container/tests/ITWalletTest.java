@@ -32,10 +32,6 @@ public class ITWalletTest {
     private WalletRepository walletRepository;
     WalletPaymentConsumer topic = new WalletPaymentConsumer();
 
-/*    @Test
-    public void contextLoads() {
-    }*/
-
     @Before
     public void before() {
         RestAssured.baseURI = PropertyUtils.instance().getProperty("WALLET_MS_SERVICE_URI");
@@ -59,7 +55,6 @@ public class ITWalletTest {
     }
 
     @Test
-    @Order(1)
     public void testGetWallet() {
         get("/wallet/adr").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
@@ -70,7 +65,6 @@ public class ITWalletTest {
     }
 
     @Test
-    @Order(2)
     public void testCreateWallet() {
         given().contentType(ContentType.JSON)
                 .body("{\"accountName\": \"Bill\", \"walletAddress\": \"qwe\" }")
@@ -85,7 +79,6 @@ public class ITWalletTest {
     }
 
     @Test
-    @Order(3)
     public void testBankToWalletTransfer() {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"qqq\",\"currencyTransfer\": 250 }")
@@ -107,7 +100,6 @@ public class ITWalletTest {
     }
 
     @Test
-    @Order(4)
     public void testWalletToWalletTransfer() {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"adr\",\"cryptoAmount\": 150 }")
@@ -138,7 +130,6 @@ public class ITWalletTest {
     }
 
     @Test
-    @Order(5)
 	public void testConsumeNewAccount() {
     NewAccountProducer.send("{\"accountName\":\"Misha\",\"walletAddress\":\"ppp\",\"currency\": \"USD\"}");
 
