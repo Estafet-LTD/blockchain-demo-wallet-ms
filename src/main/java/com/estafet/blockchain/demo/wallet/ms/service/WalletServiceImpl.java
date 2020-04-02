@@ -10,7 +10,6 @@ import com.estafet.blockchain.demo.wallet.ms.model.Wallet;
 import com.estafet.blockchain.demo.wallet.ms.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,25 +22,21 @@ public class WalletServiceImpl implements WalletService {
     private BankToWalletPaymentProducer bankToWalletPaymentProducer;
 
     @Override
-    @Transactional(readOnly = true)
     public Wallet getWallet(String walletAddress) {
         return walletRepository.findOne(walletAddress);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Wallet> getWallets() {
         return walletRepository.findAll();
     }
 
     @Override
-    @Transactional
     public Wallet createWallet(Account account) {
         return walletRepository.save(Wallet.instance(account));
     }
 
     @Override
-    @Transactional
     public Wallet walletToWalletTransfer(String fromWalletAddress, String toWalletAddress, int cryptoAmount) {
         Wallet wallet = getWallet(fromWalletAddress);
         if(wallet == null){
@@ -55,7 +50,6 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    @Transactional
     public Wallet bankToWalletTransfer(String walletAddress, double amount) {
         Wallet wallet = getWallet(walletAddress);
         if(wallet == null){
