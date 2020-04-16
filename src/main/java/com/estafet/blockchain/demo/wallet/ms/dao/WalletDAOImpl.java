@@ -28,7 +28,8 @@ public class WalletDAOImpl implements WalletDAO {
         return entityManager.find(Wallet.class, walletAddress);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Wallet> getWallets() {
         return entityManager.createQuery("Select w from Wallet w").getResultList();
     }
