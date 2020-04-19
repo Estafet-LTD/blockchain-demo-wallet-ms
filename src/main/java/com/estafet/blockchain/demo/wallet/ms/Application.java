@@ -22,9 +22,6 @@ import org.springframework.web.client.RestTemplate;
 
 import io.opentracing.Tracer;
 import io.opentracing.contrib.jms.spring.TracingJmsTemplate;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @ComponentScan
@@ -40,7 +37,7 @@ public class Application extends SpringBootServletInitializer {
 
 	@Bean
 	public io.opentracing.Tracer jaegerTracer() {
-		return new com.uber.jaeger.Configuration("wallet-ms",
+		return new com.uber.jaeger.Configuration(System.getenv("JAEGER_SERVICE_NAME"),
 				com.uber.jaeger.Configuration.SamplerConfiguration.fromEnv(),
 				com.uber.jaeger.Configuration.ReporterConfiguration.fromEnv()).getTracer();
 	}
