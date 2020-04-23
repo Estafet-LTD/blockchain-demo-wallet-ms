@@ -18,13 +18,11 @@ import com.estafet.openshift.boost.commons.lib.properties.PropertyUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles(value = "test")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ITWalletTest {
 
     @Autowired
