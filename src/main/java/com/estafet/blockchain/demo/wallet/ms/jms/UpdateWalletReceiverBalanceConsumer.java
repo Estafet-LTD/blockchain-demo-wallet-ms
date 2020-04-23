@@ -1,13 +1,14 @@
 package com.estafet.blockchain.demo.wallet.ms.jms;
 
-import com.estafet.blockchain.demo.messages.lib.wallet.UpdateWalletBalanceMessage;
-import com.estafet.blockchain.demo.wallet.ms.service.WalletService;
-import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.estafet.blockchain.demo.messages.lib.wallet.UpdateWalletBalanceMessage;
+import com.estafet.blockchain.demo.wallet.ms.service.WalletService;
+
+import io.opentracing.Tracer;
 
 @Component
 public class UpdateWalletReceiverBalanceConsumer {

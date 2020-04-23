@@ -13,6 +13,11 @@ import java.util.Objects;
 @Document
 public class Wallet implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@NotNull
 	@Id
 	private String walletAddress;
