@@ -1,49 +1,35 @@
 package com.estafet.blockchain.demo.wallet.ms.container.tests;
 
-import static io.restassured.RestAssured.get;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
 
 import java.net.HttpURLConnection;
 
-import com.estafet.blockchain.demo.wallet.ms.model.Account;
-import com.estafet.blockchain.demo.wallet.ms.model.Wallet;
-import com.estafet.blockchain.demo.wallet.ms.repository.WalletRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.estafet.openshift.boost.commons.lib.properties.PropertyUtils;
+import com.estafet.openshift.boost.couchbase.lib.annotation.BucketSetup;
+import com.estafet.openshift.boost.couchbase.lib.annotation.CouchbaseTestExecutionListener;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-@RunWith(SpringRunner.class)
-@ActiveProfiles(value = "test")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, CouchbaseTestExecutionListener.class })
 public class ITWalletTest {
 
-    @Autowired
-    private WalletRepository walletRepository;
     WalletPaymentConsumer topic = new WalletPaymentConsumer();
 
     @Before
     public void before() {
         RestAssured.baseURI = PropertyUtils.instance().getProperty("WALLET_MS_SERVICE_URI");
-
-        Wallet wallet = new Wallet();
-        wallet.setWalletAddress("adr");
-        wallet.setWalletName("Iryna");
-        wallet.setBalance(350);
-        wallet.setStatus("CLEARED");
-        walletRepository.save(wallet);
-
-        Account account = new Account();
-        account.setAccountName("Peter");
-        account.setWalletAddress("qqq");
-        walletRepository.save(Wallet.instance(account));
     }
 
     @After
@@ -52,6 +38,7 @@ public class ITWalletTest {
     }
 
     @Test
+    @BucketSetup("ITWalletTest-data.json")
     public void testGetWallet() {
         get("/wallet/adr").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
@@ -62,6 +49,7 @@ public class ITWalletTest {
     }
 
     @Test
+    @BucketSetup("ITWalletTest-data.json")
     public void testCreateWallet() {
         given().contentType(ContentType.JSON)
                 .body("{\"accountName\": \"Bill\", \"walletAddress\": \"qwe\" }")
@@ -76,6 +64,7 @@ public class ITWalletTest {
     }
 
     @Test
+    @BucketSetup("ITWalletTest-data.json")
     public void testBankToWalletTransfer() {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"qqq\",\"currencyTransfer\": 250 }")
@@ -97,6 +86,7 @@ public class ITWalletTest {
     }
 
     @Test
+    @BucketSetup("ITWalletTest-data.json")
     public void testWalletToWalletTransfer() {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"adr\",\"cryptoAmount\": 150 }")
@@ -127,9 +117,9 @@ public class ITWalletTest {
     }
 
     @Test
+    @BucketSetup("ITWalletTest-data.json")
 	public void testConsumeNewAccount() {
-    NewAccountProducer.send("{\"accountName\":\"Misha\",\"walletAddress\":\"ppp\",\"currency\": \"USD\"}");
-
+    	NewAccountProducer.send("{\"accountName\":\"Misha\",\"walletAddress\":\"ppp\",\"currency\": \"USD\"}");
         get("/wallet/ppp").then()
 			.statusCode(HttpURLConnection.HTTP_OK)
 			.body("walletAddress", is("ppp"))

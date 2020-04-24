@@ -1,0 +1,19 @@
+{
+  "blockchain-demo-build-wallet-ms": {
+    "password": "bucket",
+    "Account": [
+      {
+        "accountName": "Peter",
+        "walletAddress": "qqq"
+      }
+    ],
+    "Wallet": [
+      {
+        "walletAddress": "adr",
+        "walletName": "Iryna",
+        "balance": "0",
+        "status": "350"
+      }
+    ]
+  }
+}
