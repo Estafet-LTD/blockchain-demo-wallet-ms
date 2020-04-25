@@ -6,8 +6,15 @@
       "_class": "com.estafet.blockchain.demo.wallet.ms.model.Wallet",
       "walletAddress": "adr",
       "walletName": "Iryna",
+      "balance": "350",
+      "status": "CLEARED"
+    },
+    {
+      "_class": "com.estafet.blockchain.demo.wallet.ms.model.Wallet",
+      "walletAddress": "qqq",
+      "walletName": "Peter",
       "balance": "0",
-      "status": "350"
-    }
+      "status": "CLEARED"
+    }    
   ]
 }
