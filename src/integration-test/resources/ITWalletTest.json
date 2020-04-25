@@ -1,0 +1,13 @@
+{
+  "bucket": "blockchain-demo-build-wallet-ms",
+  "password": "bucket",
+  "documents": [
+    {
+      "_class": "com.estafet.blockchain.demo.wallet.ms.model.Wallet",
+      "walletAddress": "adr",
+      "walletName": "Iryna",
+      "balance": "0",
+      "status": "350"
+    }
+  ]
+}

@@ -38,7 +38,7 @@ public class ITWalletTest {
     }
 
     @Test
-    @BucketSetup("ITWalletTest-data.json")
+    @BucketSetup("ITWalletTest.json")
     public void testGetWallet() {
         get("/wallet/adr").then()
                 .statusCode(HttpURLConnection.HTTP_OK)
@@ -49,7 +49,7 @@ public class ITWalletTest {
     }
 
     @Test
-    @BucketSetup("ITWalletTest-data.json")
+    @BucketSetup("ITWalletTest.json")
     public void testCreateWallet() {
         given().contentType(ContentType.JSON)
                 .body("{\"accountName\": \"Bill\", \"walletAddress\": \"qwe\" }")
@@ -64,7 +64,7 @@ public class ITWalletTest {
     }
 
     @Test
-    @BucketSetup("ITWalletTest-data.json")
+    @BucketSetup("ITWalletTest.json")
     public void testBankToWalletTransfer() {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"qqq\",\"currencyTransfer\": 250 }")
@@ -86,7 +86,7 @@ public class ITWalletTest {
     }
 
     @Test
-    @BucketSetup("ITWalletTest-data.json")
+    @BucketSetup("ITWalletTest.json")
     public void testWalletToWalletTransfer() {
         given().contentType(ContentType.JSON)
                 .body("{ \"walletAddress\": \"adr\",\"cryptoAmount\": 150 }")
@@ -117,7 +117,7 @@ public class ITWalletTest {
     }
 
     @Test
-    @BucketSetup("ITWalletTest-data.json")
+    @BucketSetup("ITWalletTest.json")
 	public void testConsumeNewAccount() {
     	NewAccountProducer.send("{\"accountName\":\"Misha\",\"walletAddress\":\"ppp\",\"currency\": \"USD\"}");
         get("/wallet/ppp").then()
