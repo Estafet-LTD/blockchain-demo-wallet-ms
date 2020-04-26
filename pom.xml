@@ -30,7 +30,8 @@
 		<dependency>
 			<groupId>com.estafet.openshift.boost</groupId>
 			<artifactId>estafet-openshift-boost-couchbase-lib</artifactId>
-			<version>0.0.1</version>	
+			<version>0.0.2</version>	
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
