@@ -1,6 +1,4 @@
 {
-  "bucket": "blockchain-demo-build-wallet-ms",
-  "password": "bucket",
   "documents": [
     {
       "_class": "com.estafet.blockchain.demo.wallet.ms.model.Wallet",

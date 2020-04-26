@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.estafet.openshift.boost.commons.lib.properties.PropertyUtils;
 import com.estafet.openshift.boost.couchbase.lib.annotation.BucketSetup;
-import com.estafet.openshift.boost.couchbase.lib.annotation.CouchbaseTestExecutionListener;
+import com.estafet.openshift.boost.couchbase.lib.spring.CouchbaseTestExecutionListener;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
