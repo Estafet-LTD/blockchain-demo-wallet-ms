@@ -12,6 +12,8 @@ public interface WalletService {
     List<Wallet> getWallets();
 
     Wallet createWallet(Account account);
+    
+    void deleteWallet(String walletAddress);
 
     Wallet walletToWalletTransfer(String fromWalletAddress, String toWalletAddress, int cryptoAmount);
 

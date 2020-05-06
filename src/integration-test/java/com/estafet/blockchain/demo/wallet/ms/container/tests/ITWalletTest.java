@@ -127,4 +127,21 @@ public class ITWalletTest {
             .body("balance", is(0))
             .body("status", is("CLEARED"));
 	}
+    
+    @Test
+    @BucketSetup("ITWalletTest.json")
+	public void testConsumeDeleteAccount() {
+    	DeleteAccountProducer.send("{\"accountName\":\"Misha\",\"walletAddress\":\"qqq\",\"currency\": \"USD\"}");
+        get("/wallets").then()
+			.statusCode(HttpURLConnection.HTTP_OK)
+			.body("walletAddress", hasItems("adr"));
+	}
+    
+    @Test
+    @BucketSetup("ITWalletTest.json")
+	public void testGetWallets() {
+        get("/wallets").then()
+			.statusCode(HttpURLConnection.HTTP_OK)
+			.body("walletAddress", hasItems("adr", "qqq"));
+	}
 }

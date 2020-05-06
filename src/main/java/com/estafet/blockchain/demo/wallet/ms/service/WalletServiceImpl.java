@@ -37,6 +37,11 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
+	public void deleteWallet(String walletAddress) {
+    	walletRepository.delete(walletAddress);
+	}
+
+	@Override
     public Wallet walletToWalletTransfer(String fromWalletAddress, String toWalletAddress, int cryptoAmount) {
         Wallet wallet = getWallet(fromWalletAddress);
         if(wallet == null){
