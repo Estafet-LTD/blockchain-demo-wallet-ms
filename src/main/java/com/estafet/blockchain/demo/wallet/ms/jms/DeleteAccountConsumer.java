@@ -23,7 +23,7 @@ public class DeleteAccountConsumer {
     @JmsListener(destination = TOPIC, containerFactory = "myFactory")
     public void onMessage(String message) {
         try {
-            walletService.createWallet(Account.fromJSON(message));
+            walletService.deleteWallet(Account.fromJSON(message).getWalletAddress());
         } finally {
             if (tracer.activeSpan() != null) {
                 tracer.activeSpan().close();
