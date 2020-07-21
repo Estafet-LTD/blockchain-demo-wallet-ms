@@ -11,8 +11,8 @@
 	</parent>
 
 	<scm>
-		<connection>scm:git:https://github.com/Estafet-LTD/estafet-blockchain-demo-wallet-ms.git</connection>
-		<developerConnection>scm:git:https://github.com/Estafet-LTD/estafet-blockchain-demo-wallet-ms.git</developerConnection>
+		<connection>scm:git:https://github.com/Estafet-LTD/blockchain-demo-wallet-ms.git</connection>
+		<developerConnection>scm:git:https://github.com/Estafet-LTD/blockchain-demo-wallet-ms.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 

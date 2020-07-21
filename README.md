@@ -1,1 +1,1 @@
-# estafet-blockchain-demo-wallet-ms
+# blockchain-demo-wallet-ms
