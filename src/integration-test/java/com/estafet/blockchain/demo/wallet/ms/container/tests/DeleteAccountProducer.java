@@ -1,6 +1,6 @@
 package com.estafet.blockchain.demo.wallet.ms.container.tests;
 
-import com.estafet.openshift.boost.commons.lib.jms.TopicProducer;
+import com.estafet.boostcd.jms.TopicProducer;
 
 public class DeleteAccountProducer extends TopicProducer {
 
